@@ -1,0 +1,280 @@
+task 1
+nestaraus@linux:~$ pwd
+/home/nestaraus
+nestaraus@linux:~$ mkdir homework
+nestaraus@linux:~$ cd homework
+nestaraus@linux:~/homework$ cat > Pets
+dogs, cats, humsters
+nestaraus@linux:~/homework$ cat > pack_animals
+camels, horses, donkeys
+nestaraus@linux:~/homework$ cat Pets pack_animals > animals
+nestaraus@linux:~/homework$ cat animals
+dogs, cats, humsters
+camels, horses, donkeys
+nestaraus@linux:~/homework$ mv animals mens_friends
+nestaraus@linux:~/homework$ ll
+итого 20
+drwxrwxr-x  2 nestaraus nestaraus 4096 окт 12 14:35 ./
+drwxr-x--- 21 nestaraus nestaraus 4096 окт 12 14:24 ../
+-rw-rw-r--  1 nestaraus nestaraus   45 окт 12 14:33 mens_friends
+-rw-rw-r--  1 nestaraus nestaraus    0 окт 12 14:30 pack
+-rw-rw-r--  1 nestaraus nestaraus   24 окт 12 14:31 pack_animals
+-rw-rw-r--  1 nestaraus nestaraus   21 окт 12 14:29 Pets
+
+task 2
+nestaraus@linux:~/homework$ mkdir task2
+nestaraus@linux:~/homework$ mv mens_friends task2
+nestaraus@linux:~/homework$ cd task2/
+nestaraus@linux:~/homework/task2$ ll
+итого 12
+drwxrwxr-x 2 nestaraus nestaraus 4096 окт 12 14:44 ./
+drwxrwxr-x 3 nestaraus nestaraus 4096 окт 12 14:44 ../
+-rw-rw-r-- 1 nestaraus nestaraus   45 окт 12 14:33 mens_friends
+nestaraus@linux:~/homework/task2$ 
+
+task 3
+
+nestaraus@linux:~/homework/task2$ sudo add-apt-repository 'deb http://repo.mysql.com/apt/ubuntu/ bionic mysql-8.0'
+[sudo] пароль для nestaraus: 
+Репозиторий: 'deb http://repo.mysql.com/apt/ubuntu/ bionic mysql-8.0'
+nestaraus@linux:~/homework/task2$ sudo apt-get update
+nestaraus@linux:~/homework/task2$ sudo apt install mysql-server
+
+task 4
+
+nestaraus@linux:~/homework/task2$ sudo wget https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-ce_20.10.24~3-0~ubuntu-jammy_amd64.deb
+nestaraus@linux:~/homework/task2$ sudo dpkg -i docker-ce_20.10.24~3-0~ubuntu-jammy_amd64.deb
+dpkg: предупреждение: снижение версии docker-ce с 5:27.3.1-1~ubuntu.22.04~jammy до 5:20.10.24~3-0~ubuntu-jammy
+(Чтение базы данных … на данный момент установлено 194827 файлов и каталогов.)
+Подготовка к распаковке docker-ce_20.10.24~3-0~ubuntu-jammy_amd64.deb …
+Распаковывается docker-ce (5:20.10.24~3-0~ubuntu-jammy) на замену (5:27.3.1-1~ubuntu.22.04~jammy) …
+Настраивается пакет docker-ce (5:20.10.24~3-0~ubuntu-jammy) …
+nestaraus@linux:~/homework/task2$ sudo dpkg -r docker-ce
+
+task 7
+nestaraus@linux:~/homework/task2$ sudo mysql 
+mysql> CREATE DATABASE Humens_friends;
+Query OK, 1 row affected (0,01 sec)
+
+task 8 
+
+USE Humens_friends;
+
+CREATE TABLE Animals_classes
+(
+	Id INT AUTO_INCREMENT PRIMARY KEY, 
+	Class_name VARCHAR(20)
+);
+
+INSERT INTO Animals_classes (Class_name)
+VALUES ('вьючные'),
+('домашние');  
+
+CREATE TABLE Packed_animals
+(
+	  Id INT AUTO_INCREMENT PRIMARY KEY,
+    Genus_name VARCHAR (20),
+    Class_id INT,
+    FOREIGN KEY (Class_id) REFERENCES Animals_classes (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO Packed_animals (Genus_name, Class_id)
+VALUES ('Верблюды', 1),
+('Лошади', 1),  
+('Ослы', 1); 
+
+CREATE TABLE Pets
+(
+	  Id INT AUTO_INCREMENT PRIMARY KEY,
+    Genus_name VARCHAR (20),
+    Class_id INT,
+    FOREIGN KEY (Class_id) REFERENCES Animals_classes (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO Pets (Genus_name, Class_id)
+VALUES ('Кошки', 2),
+('Собаки', 2),  
+('Хомяки', 2); 
+
+CREATE TABLE Camels 
+(       
+    Id INT AUTO_INCREMENT PRIMARY KEY, 
+    Name VARCHAR(20), 
+    Birthday DATE,
+    Commands VARCHAR(50),
+    Genus_id int,
+    Foreign KEY (Genus_id) REFERENCES Packed_animals (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Donkeys 
+(       
+    Id INT AUTO_INCREMENT PRIMARY KEY, 
+    Name VARCHAR(20), 
+    Birthday DATE,
+    Commands VARCHAR(50),
+    Genus_id int,
+    Foreign KEY (Genus_id) REFERENCES Packed_animals (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Horses 
+(       
+    Id INT AUTO_INCREMENT PRIMARY KEY, 
+    Name VARCHAR(20), 
+    Birthday DATE,
+    Commands VARCHAR(50),
+    Genus_id int,
+    Foreign KEY (Genus_id) REFERENCES Packed_animals (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Cats 
+(       
+    Id INT AUTO_INCREMENT PRIMARY KEY, 
+    Name VARCHAR(20), 
+    Birthday DATE,
+    Commands VARCHAR(50),
+    Genus_id int,
+    Foreign KEY (Genus_id) REFERENCES Pets (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Dogs 
+(       
+    Id INT AUTO_INCREMENT PRIMARY KEY, 
+    Name VARCHAR(20), 
+    Birthday DATE,
+    Commands VARCHAR(50),
+    Genus_id int,
+    Foreign KEY (Genus_id) REFERENCES Pets (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Humsters 
+(       
+    Id INT AUTO_INCREMENT PRIMARY KEY, 
+    Name VARCHAR(20), 
+    Birthday DATE,
+    Commands VARCHAR(50),
+    Genus_id int,
+    Foreign KEY (Genus_id) REFERENCES Pets (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+task 9
+
+INSERT INTO Camels (Name, Birthday, Commands, Genus_id)
+VALUES ('Camel_1', '2000-01-01', "Command_1", 1),  
+('Camel_2', '2000-01-02', "Command_2", 1), 
+('Camel_3', '2000-01-03', "Command_3", 1);
+
+INSERT INTO Donkeys (Name, Birthday, Commands, Genus_id)
+VALUES ('Donkey_1', '2000-02-01',"Command_1", 2),
+('Donkey_2', '2000-02-02', "Command_2", 2),  
+('Donkey_3', '2000-02-03', "Command_3", 2); 
+
+INSERT INTO Horses (Name, Birthday, Commands, Genus_id)
+VALUES ('Horse_1', '2000-03-01', "Command_1", 3),  
+('Horse_2', '2000-03-02', "Command_2", 3), 
+('Horse_3', '2000-03-03', "Command_3", 3);
+
+INSERT INTO Cats (Name, Birthday, Commands, Genus_id)
+VALUES ('Cat_1', '2000-04-01', 'Command_1', 1),
+('Cat_2', '2000-04-02', "Command_2", 1),  
+('Cat_3', '2000-04-03', "Command_3", 1); 
+
+INSERT INTO Dogs (Name, Birthday, Commands, Genus_id)
+VALUES ('Dog_1', '2000-05-01', 'Command_1', 2),
+('Dog_2', '2000-05-02', "Command_2", 2),  
+('Dog_3', '2000-05-03', "Command_3", 2);
+
+
+INSERT INTO Humsters (Name, Birthday, Commands, Genus_id)
+VALUES ('Humster_1', '2000-06-01', 'Command_1', 3),
+('Humster_2', '2000-06-02', "Command_2", 3),  
+('Humster_3', '2000-06-03', "Command_3", 3);
+
+task 10
+
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM Camels;
+mysql> SELECT Name, Birthday, Commands FROM Horses
+    -> UNION SELECT  Name, Birthday, Commands FROM Donkeys;
++----------+------------+-----------+
+| Name     | Birthday   | Commands  |
++----------+------------+-----------+
+| Horse_1  | 2000-03-01 | Command_1 |
+| Horse_2  | 2000-03-02 | Command_2 |
+| Horse_3  | 2000-03-03 | Command_3 |
+| Donkey_1 | 2000-02-01 | Command_1 |
+| Donkey_2 | 2000-02-02 | Command_2 |
+| Donkey_3 | 2000-02-03 | Command_3 |
++----------+------------+-----------+
+6 rows in set (0,00 sec)
+
+task 11
+
+CREATE TEMPORARY TABLE Sort_Animals AS 
+SELECT *, 'Donkeys' as genus FROM Donkeys
+UNION SELECT *, 'Horses' AS genus FROM Horses
+UNION SELECT *, 'Cats' AS genus FROM Cats
+UNION SELECT *, 'Dogs' AS genus FROM Dogs
+UNION SELECT *, 'Humsters' AS genus FROM Humsters;
+
+CREATE TABLE Young_animals AS
+SELECT Name, Birthday, Commands, genus, TIMESTAMPDIFF(MONTH, Birthday, CURDATE()) AS Age_in_month
+FROM Sort_Animals WHERE Birthday BETWEEN ADDDATE(curdate(), INTERVAL -3 YEAR) AND ADDDATE(CURDATE(), INTERVAL -1 YEAR);
+
+SELECT * FROM Young_animals;
+
+task 12
+
+SELECT d.Name, d.Birthday, d.Commands, pa.Genus_name, ya.Age_in_month 
+FROM Donkeys d 
+LEFT JOIN Young_animals ya ON ya.Name = d.Name
+LEFT JOIN Packed_animals pa ON pa.Id = d.Genus_id
+UNION
+
+SELECT h.Name, h.Birthday, h.Commands, pa.Genus_name, ya.Age_in_month 
+FROM Horses h
+LEFT JOIN Young_animals ya ON ya.Name = h.Name
+LEFT JOIN Packed_animals pa ON pa.Id = h.Genus_id
+UNION 
+
+SELECT c.Name, c.Birthday, c.Commands, pe.Genus_name, ya.Age_in_month 
+FROM Cats c
+LEFT JOIN Young_animals ya ON ya.Name = c.Name
+LEFT JOIN Pets pe ON pe.Id = c.Genus_id
+UNION
+
+SELECT d.Name, d.Birthday, d.Commands, pe.Genus_name, ya.Age_in_month 
+FROM Dogs d
+LEFT JOIN Young_animals ya ON ya.Name = d.Name
+LEFT JOIN Pets pe ON pe.Id = d.Genus_id
+UNION
+
+SELECT hm.Name, hm.Birthday, hm.Commands, pe.Genus_name, ya.Age_in_month 
+FROM Humsters hm
+LEFT JOIN Young_animals ya ON ya.Name = hm.Name
+LEFT JOIN Pets pe ON pe.Id = hm.Genus_id;
+
++-----------+------------+-----------+------------------+--------------+
+| Name      | Birthday   | Commands  | Genus_name       | Age_in_month |
++-----------+------------+-----------+------------------+--------------+
+| Donkey_1  | 2000-02-01 | Command_1 | Лошади           |         NULL |
+| Donkey_2  | 2000-02-02 | Command_2 | Лошади           |         NULL |
+| Donkey_3  | 2000-02-03 | Command_3 | Лошади           |         NULL |
+| Horse_1   | 2000-03-01 | Command_1 | Верблюды         |         NULL |
+| Horse_2   | 2000-03-02 | Command_2 | Верблюды         |         NULL |
+| Horse_3   | 2000-03-03 | Command_3 | Верблюды         |         NULL |
+| Horse_1   | 2000-03-01 | Command_1 | Ослы             |         NULL |
+| Horse_2   | 2000-03-02 | Command_2 | Ослы             |         NULL |
+| Horse_3   | 2000-03-03 | Command_3 | Ослы             |         NULL |
+| Cat_1     | 2000-04-01 | Command_1 | Кошки            |         NULL |
+| Cat_2     | 2000-04-02 | Command_2 | Кошки            |         NULL |
+| Cat_3     | 2000-04-03 | Command_3 | Кошки            |         NULL |
+| Dog_1     | 2000-05-01 | Command_1 | Собаки           |         NULL |
+| Dog_2     | 2000-05-02 | Command_2 | Собаки           |         NULL |
+| Dog_3     | 2000-05-03 | Command_3 | Собаки           |         NULL |
+| Humster_1 | 2000-06-01 | Command_1 | Хомяки           |         NULL |
+| Humster_2 | 2000-06-02 | Command_2 | Хомяки           |         NULL |
+| Humster_3 | 2000-06-03 | Command_3 | Хомяки           |         NULL |
++-----------+------------+-----------+------------------+--------------+
+18 rows in set (0,01 sec)
+
