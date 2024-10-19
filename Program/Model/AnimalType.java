@@ -1,7 +1,7 @@
 package Program.Model;
 
 public enum AnimalType {
-   
+    
     Cat,
     Dog,
     Horse;
