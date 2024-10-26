@@ -4,17 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public abstract class Animal {
-    protected int AnimalId;
+    protected int animalId;
     protected String name;
     protected LocalDate birth;
 
 
 public void setAnimalId(int AnimalId) {
-    this.AnimalId = AnimalId;
+    this.animalId = AnimalId;
 }
 
 public int getAnimalId() {
-    return AnimalId;
+    return animalId;
 }
 
 public void setName(String name) {

@@ -10,16 +10,17 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import Program.Model.*;
+import Program.Model.Animal;
 
 public class AnimalRepository implements Repository<Animal> {
     
-    private Creator animalCreator;
+    private AnimalCreator animalCreator;
     private Statement sqlST;
-    private SetResult setresult;
+    private ResultSet setresult;
     private String sqlstr;
 
     public AnimalRepository(){
-        this.animalCreator = new AnimalCreator(); 
+        this.animalCreator = new NewAnimal(); 
     };
 
     @Override 
@@ -168,7 +169,7 @@ public class AnimalRepository implements Repository<Animal> {
 
                 prepst.setString(1, animal.getName());
                 prepst.setDate(2, Date.valueOf(animal.getBirthDate()));
-                prepst.setInt(3, getAnimalId());
+                prepst.setInt(3, animal.getAnimalId());
 
                 rows = prepst.executeUpdate();
                 return rows;

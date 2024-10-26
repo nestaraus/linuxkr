@@ -6,8 +6,8 @@ public enum AnimalType {
     Dog,
     Horse;
 
-    public static AnimalType getType (int TypeId){
-        switch (TypeId){
+    public static AnimalType getType (int typeId){
+        switch (typeId){
             case 1:
                 return AnimalType.Cat;
             case 2:

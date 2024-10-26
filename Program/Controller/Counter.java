@@ -1,6 +1,6 @@
 package Program.Controller;
 
-class Counter implements AutoCloseable {
+public class Counter implements AutoCloseable {
 
     static int sum;
     {
